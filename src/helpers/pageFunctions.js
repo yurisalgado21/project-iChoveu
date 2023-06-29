@@ -78,8 +78,6 @@ export function showForecast(forecastList) {
  */
 export function createCityElement(cityInfo) {
   const { name, country, temp, condition, icon, url } = cityInfo;
-
-  const ul = document.querySelector('#cities');
   const cityElement = createElement('li', 'city');
 
   const headingElement = createElement('div', 'city-heading');
