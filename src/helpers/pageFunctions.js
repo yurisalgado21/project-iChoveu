@@ -77,8 +77,9 @@ export function showForecast(forecastList) {
  * Recebe um objeto com as informações de uma cidade e retorna um elemento HTML
  */
 export function createCityElement(cityInfo) {
-  const { name, country, temp, condition, icon /* , url */ } = cityInfo;
+  const { name, country, temp, condition, icon, url } = cityInfo;
 
+  const ul = document.querySelector('#cities');
   const cityElement = createElement('li', 'city');
 
   const headingElement = createElement('div', 'city-heading');
@@ -101,6 +102,11 @@ export function createCityElement(cityInfo) {
   infoContainer.appendChild(tempContainer);
   infoContainer.appendChild(iconElement);
 
+  const urlContainer = createElement('div', 'url-container');
+  const urlEl = createElement('p', 'city-url', url);
+  urlContainer.appendChild(urlEl);
+
+  cityElement.appendChild(tempContainer);
   cityElement.appendChild(headingElement);
   cityElement.appendChild(infoContainer);
 
@@ -114,13 +120,22 @@ export async function handleSearch(event) {
   event.preventDefault();
   clearChildrenById('cities');
 
+  const ul = document.querySelector('#cities');
   const searchInput = document.getElementById('search-input');
   const searchValue = searchInput.value;
+  // Aqui estão minhas cidades.
   const getCities = await searchCities(searchValue);
-  Promise.all(getCities)
-    .then((resultados) => {
-      resultados.filter((city) => {
-        return getWeatherByCity(city.url);
-      });
-    });
+  const everyCitiesSpecific = getCities.map((city) => getWeatherByCity(city.url));
+  Promise.all(everyCitiesSpecific).then((everycities) => everycities
+    .forEach((city, index) => {
+      const result = {
+        name: city.location.name,
+        country: city.location.country,
+        temp: city.current.temp_c,
+        condition: city.current.condition.text,
+        icon: city.current.condition.icon,
+        url: everyCitiesSpecific[index].url,
+      };
+      ul.appendChild(createCityElement(result));
+    }));
 }
