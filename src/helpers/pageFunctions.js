@@ -1,4 +1,4 @@
-import { searchCities, getWeatherByCity } from './weatherAPI';
+import { searchCities, getWeatherByCity, TOKEN } from './weatherAPI';
 
 /**
  * Cria um elemento HTML com as informações passadas
@@ -69,7 +69,7 @@ export function showForecast(forecastList) {
     const weekdayElement = createForecast(forecast);
     weekdayContainer.appendChild(weekdayElement);
   });
-
+  console.log(forecastList);
   forecastContainer.classList.remove('hidden');
 }
 
@@ -80,6 +80,8 @@ export function createCityElement(cityInfo) {
   const { name, country, temp, condition, icon, url } = cityInfo;
   const cityElement = createElement('li', 'city');
 
+  const button = createElement('button', 'button');
+  button.innerText = 'Ver previsão';
   const headingElement = createElement('div', 'city-heading');
   const nameElement = createElement('h2', 'city-name', name);
   const countryElement = createElement('p', 'city-country', country);
@@ -104,9 +106,24 @@ export function createCityElement(cityInfo) {
   const urlEl = createElement('p', 'city-url', url);
   urlContainer.appendChild(urlEl);
 
-  cityElement.appendChild(tempContainer);
   cityElement.appendChild(headingElement);
   cityElement.appendChild(infoContainer);
+  cityElement.appendChild(button);
+  button.addEventListener('click', async () => {
+    const DIAS = 7;
+    const API_CITIES = `https://api.weatherapi.com/v1/forecast.json?lang=pt&key=${TOKEN}&q=${cityInfo.url}&days=${DIAS}`;
+    const cities = await fetch(API_CITIES);
+    const data = await cities.json();
+    const forecast = data.forecast.forecastday;
+    const forecastResult = forecast.map((days) => ({
+      date: days.date,
+      maxTemp: days.day.maxtemp_c,
+      minTemp: days.day.mintemp_c,
+      condition: days.day.condition.text,
+      icon: days.day.condition.icon,
+    }));
+    showForecast(forecastResult);
+  });
 
   return cityElement;
 }
@@ -132,7 +149,7 @@ export async function handleSearch(event) {
         temp: city.current.temp_c,
         condition: city.current.condition.text,
         icon: city.current.condition.icon,
-        url: everyCitiesSpecific[index].url,
+        url: getCities[index].url,
       };
       ul.appendChild(createCityElement(result));
     }));

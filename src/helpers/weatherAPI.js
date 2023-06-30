@@ -1,4 +1,4 @@
-const TOKEN = import.meta.env.VITE_TOKEN;
+export const TOKEN = import.meta.env.VITE_TOKEN;
 
 export const searchCities = async (term) => {
 //   seu código aqui
