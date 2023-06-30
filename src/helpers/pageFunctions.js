@@ -110,7 +110,6 @@ export function createCityElement(cityInfo) {
   cityElement.appendChild(infoContainer);
   cityElement.appendChild(button);
   button.addEventListener('click', async () => {
-    const DIAS = 7;
     const API_CITIES = `http://api.weatherapi.com/v1/forecast.json?lang=pt&key=${TOKEN}&q=${cityInfo.url}&days=7`;
     const cities = await fetch(API_CITIES);
     const data = await cities.json();
