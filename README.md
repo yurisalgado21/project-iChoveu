@@ -1,10 +1,19 @@
-# :construction: README em construção ! :construction:
-<!-- Olá, Tryber!
-Esse é apenas um arquivo inicial para o README do seu projeto.
-É essencial que você preencha esse documento por conta própria, ok?
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-:warning: IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
--->
+## Projeto Ichoveu
+
+## Bem-vindo ao Projeto Ichoveu! 🌦️
+## Descrição
+
+O Projeto Ichoveu é um site de previsão do tempo que consome dados diretamente da WeatherAPI. Este projeto foi desenvolvido com o intuito de fornecer previsões meteorológicas precisas e atualizadas para qualquer localidade do mundo.
+Funcionalidades
+
+    Previsão do Tempo Atual: Exibe a temperatura atual, condições meteorológicas, umidade, velocidade do vento, e mais.
+    Previsão para os Próximos Dias: Mostra a previsão do tempo para os próximos dias, incluindo temperaturas máximas e mínimas, e condições gerais.
+    Busca por Localidade: Permite buscar a previsão do tempo para diferentes cidades ao redor do mundo.
+    Interface Amigável: Design intuitivo e fácil de usar.
+
+## Tecnologias Utilizadas
+
+    HTML: Estrutura do site.
+    CSS: Estilização do site.
+    JavaScript: Funcionalidades dinâmicas e integração com a API.
+    API: WeatherAPI para obter os dados meteorológicos. site da api: https://www.weatherapi.com/docs/
